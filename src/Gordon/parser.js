@@ -362,6 +362,7 @@ SwfParser.prototype = {
 
 	_handleFrameLabel: function (stream, offset, len, frm) {
 		frm.label = stream.readString();
+		frm.isAnchor = (stream.offset !== offset + len) ? stream.readUI8() : 0;
 	},
 
 	_handleDefineShape2: function (stream, offset, len) {
