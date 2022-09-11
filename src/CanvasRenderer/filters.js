@@ -259,7 +259,7 @@ function blurAlphaVertical(pixelsIn, pixelsOut, radius1, w, h) {
 	}
 }
 
-function glow(context, params, dim, bounds, color, angle, distance, gradientColors, gradientRatios) {
+function glow(context, params, dim, bounds, color, angle, distance, gradientColors, gradientRatios, ratio) {
 	/* jshint maxstatements: 100 */
 	/* jshint maxdepth: 10 */
 	var left   = dim.left;
@@ -269,8 +269,8 @@ function glow(context, params, dim, bounds, color, angle, distance, gradientColo
 
 	var inner = params.inner;
 
-	var blurX = params.blurX;
-	var blurY = params.blurY;
+	var blurX = params.blurX * ratio;
+	var blurY = params.blurY * ratio;
 	var nbPasses  = params.numPasses;
 
 	var dx = Math.round(Math.cos(angle) * distance);
@@ -477,12 +477,12 @@ function glow(context, params, dim, bounds, color, angle, distance, gradientColo
 	dim.height = h;
 }
 
-exports.dropShadow = function (context, params, dim, bounds) {
-	glow(context, params, dim, bounds, params.dropShadowColor, params.angle, params.distance);
+exports.dropShadow = function (context, params, dim, bounds, ratio) {
+	glow(context, params, dim, bounds, params.dropShadowColor, params.angle, params.distance, undefined, undefined, ratio);
 };
 
-exports.glow = function (context, params, dim, bounds) {
-	glow(context, params, dim, bounds, params.glowColor, 0, 0, params.gradientColors, params.gradientRatios);
+exports.glow = function (context, params, dim, bounds, ratio) {
+	glow(context, params, dim, bounds, params.glowColor, 0, 0, params.gradientColors, params.gradientRatios, ratio);
 };
 
 function blurVertical(pixelsIn, pixelsOut, radius1, w, h) {

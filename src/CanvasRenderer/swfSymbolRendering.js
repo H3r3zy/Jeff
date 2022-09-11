@@ -76,6 +76,7 @@ function applyTint(context, tint, dim, bounds) {
 }
 
 CanvasRenderer.prototype._renderSymbol = function (globalCanvas, globalContext, parentTransform, parentColor, instance, frame, isMask) {
+	const ratio = this._extractor._fileGroupRatio;
 	/* jshint maxcomplexity: 60 */
 	/* jshint maxstatements: 150 */
 	var id = instance.id;
@@ -275,10 +276,10 @@ CanvasRenderer.prototype._renderSymbol = function (globalCanvas, globalContext, 
 					filters.colorMatrix(localContext, filter, dim, bounds);
 					break;
 				case 'drop shadow':
-					filters.dropShadow(localContext, filter, dim, bounds);
+					filters.dropShadow(localContext, filter, dim, bounds, ratio);
 					break;
 				case 'glow':
-					filters.glow(localContext, filter, dim, bounds);
+					filters.glow(localContext, filter, dim, bounds, ratio);
 					break;
 				case 'blur':
 					filters.blur(localContext, filter, dim, bounds);
