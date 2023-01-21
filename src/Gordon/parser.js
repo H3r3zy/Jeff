@@ -222,11 +222,12 @@ SwfParser.prototype = {
 				throw new Error('Parsing error in ' + handle + ': actual len read=' + lenRead + ' VS intended len=' + len);
 			}
 		} catch (e) {
+			// Some tags have remaining byte useless, so just warn user.
+			// https://github.com/H3r3zy/Jeff/issues/3
 			console.warn(this.swfName + ': ' + e.stack);
 			stream.seek(offset, true);
 			var val = stream.readString(len);
 			console.warn(this.swfName + ': Mishandled tag:', handle.substr(7) + '=' + dumpVal(val, 500) + ' total length:' + len + ' starting at:' + offset);
-			this.aborting = true;
 		}
 	},
 
