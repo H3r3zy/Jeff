@@ -1,23 +1,20 @@
+const cloneDeep = require('lodash.clonedeep');
 
 function groupSwfObjects(swfObjectGroups) {
 	// Merging swf objects from several input swf files
 	// Duplicated classes will be discared with respect to the priorities
 
 	var idOffset = 0;
-	function updateId(key, val) {
-		if (key === 'id') {
-			return val + idOffset;
-		}
-		return val;
-	}
-
 	var swfObjects  = [];
 	var nGroups     = swfObjectGroups.length;
 	for (var g = 0; g < nGroups; g += 1) {
 		idOffset = swfObjects.length;
 
 		// Making a deep copy of swf objects with updated IDs
-		var updatedSwfObjects = JSON.parse(JSON.stringify(swfObjectGroups[g], updateId));
+		var updatedSwfObjects = cloneDeep(swfObjectGroups[g]);
+		updatedSwfObjects.forEach((swfObject) => {
+			swfObject.id = swfObject.id + idOffset;
+		});
 
 		var s, swfObject;
 		var nObjects = updatedSwfObjects.length;
