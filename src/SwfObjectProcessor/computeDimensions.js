@@ -18,6 +18,8 @@ function multiplyTransforms(t0, t1) {
 }
 
 function computeSpriteDimension(items, item, transform, frame, originClassName) {
+	if (!item) //Ignore imports of swf
+		return;
 
 	if (item.isSprite) {
 		var bounds = item.bounds;

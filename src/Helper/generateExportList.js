@@ -37,7 +37,7 @@ function generateExportList(items, classList, attributeFilter) {
 		itemList[itemId] = true;
 
 		var item = items[itemId];
-		if (item.isSprite || item.unhandled) {
+		if (!item /*Ignore imports of swf*/ || item.isSprite || item.unhandled) {
 			continue;
 		}
 

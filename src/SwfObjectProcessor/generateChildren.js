@@ -498,7 +498,8 @@ function generateChildren(symbol, items) {
 	var symbolId = symbol.id;
 	for (c = 0; c < children.length; c += 1) {
 		var item = items[children[c].id];
-		item.parents[symbolId] = symbolId;
+		if (item) //Ignore imports of swf
+			item.parents[symbolId] = symbolId;
 	}
 }
 
